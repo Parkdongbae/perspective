@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>단계 점검용 갤러리</title>
+<style>
+  body { font: 12px "Malgun Gothic", sans-serif; margin: 8px; background: #eef1f8; }
+  .g { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  figure { margin: 0; background: #fff; padding: 3px; }
+  canvas { width: 100%; display: block; }
+  figcaption { white-space: nowrap; overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="g" id="g"></div>
+<script type="module">
+  // 개발용: ?set=1|2|3|f, &mode=play(진행 중 화면)|final(자동 완성 후 화면)
+  import { Game } from '../js/engine.js';
+  import { STAGES1, make1 } from '../js/learn1.js';
+  import { STAGES2, STAGES3, makeBox } from '../js/learn23.js';
+  import { LESSONS } from '../js/follow.js';
+  const q = new URLSearchParams(location.search);
+  const set = q.get('set') || '1', mode = q.get('mode') || 'final', steps = Number(q.get('n') || 4);
+  const list = set === '1' ? STAGES1.map((s) => [s.name, () => make1(s)])
+    : set === '2' ? STAGES2.map((s) => [s.name, () => makeBox(2, s)])
+    : set === '3' ? STAGES3.map((s) => [s.name, () => makeBox(3, s)])
+    : LESSONS.map((l) => [l.name, l.make]);
+  const g = document.getElementById('g');
+  g.style.gridTemplateColumns = `repeat(${q.get('cols') || 5}, 1fr)`;
+  if (q.get('only')) list.splice(0, list.length, ...q.get('only').split(',').map((i) => list[i]));
+  window.__games = [];
+  for (const [name, mk] of list) {
+    const fig = document.createElement('figure');
+    const cv = document.createElement('canvas');
+    cv.style.aspectRatio = '16/9';
+    const cap = document.createElement('figcaption');
+    fig.append(cv, cap); g.append(fig);
+    const game = new Game(cv, mk(), {});
+    if (mode === 'final') game.autoSolve(); else game.autoSolve(steps);
+    game.conf = []; game.floats = [];
+    cap.textContent = `${name} · ${game.cleared ? '완료' : '진행'} · ${game.score}점`;
+    window.__games.push(game);
+  }
+</script>
+</body>
+</html>
