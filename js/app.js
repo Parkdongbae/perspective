@@ -87,12 +87,38 @@ function home() {
           </button>
         </div>
         <div class="total"><span class="pill">⭐ 모은 별 ${stars}</span><span class="pill">✅ 학습 ${cleared} / 30</span><span class="pill">🖌️ 따라하기 ${Object.keys(prog.follow).length} / ${LESSONS.length}</span></div>
+        <div><button class="reset" id="reset">↺ 리셋</button></div>
       </div>
     </main>`);
   el.querySelector('[data-go=worlds]').onclick = worlds;
   el.querySelector('[data-go=follow]').onclick = followList;
   el.querySelector('[data-go=sketch]').onclick = sketch;
+  el.querySelector('#reset').onclick = resetDialog;
   app.append(el);
+}
+
+// 리셋: 학습·따라하기 기록을 지우고 처음부터
+function resetDialog() {
+  const m = h(`
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+      <div class="modal-box">
+        <div class="ico">🌱</div>
+        <h3 id="resetTitle">새롭게 시작해 보아요.</h3>
+        <p>앞에서 한 기록(별, 클리어, 연습장 그림)을 모두 지우고 처음부터 다시 시작해요.</p>
+        <div class="modal-btns"><button class="btn" data-no>취소</button><button class="btn primary" data-yes>새로 시작</button></div>
+      </div>
+    </div>`);
+  const close = () => m.remove();
+  m.onclick = (e) => { if (e.target === m) close(); };
+  m.querySelector('[data-no]').onclick = close;
+  m.querySelector('[data-yes]').onclick = () => {
+    prog = { learn: { 1: [], 2: [], 3: [] }, follow: {} };
+    save();
+    localStorage.removeItem('persp.sketch'); // 연습장 그림도 지운다
+    home();
+  };
+  app.append(m);
+  m.querySelector('[data-yes]').focus();
 }
 
 // ---------- 학습: 소점 선택 ----------

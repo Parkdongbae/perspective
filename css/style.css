@@ -180,3 +180,14 @@ h1, h2, h3, h4 { margin: 0; font-family: var(--display); font-weight: 400; lette
 .sk .mini { padding: 7px 12px; font-size: 13px; border-radius: 10px; }
 .sk label.chk { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; font-weight: 700; cursor: pointer; }
 .bar .btn.mini { padding: 9px 12px; font-size: 14px; white-space: nowrap; }
+
+/* ---------- 리셋 ---------- */
+.reset { margin-top: 18px; padding: 8px 18px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); color: var(--sub); font-weight: 700; font-size: 14px; }
+.reset:hover { border-color: var(--red); color: var(--red); }
+.modal { position: fixed; inset: 0; z-index: 50; background: rgba(30, 42, 74, .45); display: grid; place-items: center; padding: 20px; }
+.modal-box { width: min(420px, 100%); background: var(--card); border-radius: 24px; padding: 30px 26px 24px; text-align: center; box-shadow: 0 20px 60px rgba(30, 42, 74, .3); }
+.modal-box .ico { font-size: 46px; }
+.modal-box h3 { font-size: 28px; margin: 8px 0 10px; }
+.modal-box p { margin: 0 0 22px; color: var(--sub); line-height: 1.55; }
+.modal-btns { display: flex; gap: 10px; }
+.modal-btns .btn { flex: 1; }
