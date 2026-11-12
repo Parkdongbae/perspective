@@ -1,0 +1,25 @@
+{
+  "name": "perspective",
+  "version": "1.0.0",
+  "description": "1소점·2소점·3소점 투시도를 직접 그리며 배우는 학습 게임",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parkdongbae/perspective.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Parkdongbae/perspective/issues"
+  },
+  "homepage": "https://github.com/Parkdongbae/perspective#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
