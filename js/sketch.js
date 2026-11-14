@@ -160,7 +160,8 @@ export function openSketch(app, onBack) {
   function down(e) {
     if (cur) return;
     try { cv.setPointerCapture(e.pointerId); } catch { /* 일부 브라우저 */ }
-    const p = toW(e), tool = cfg.tool;
+    // 지우개 버튼(펜 지우개, 손 조작의 엄지+중지 핀치)은 도구와 상관없이 지운다
+    const p = toW(e), tool = e.button === 5 ? 'erase' : cfg.tool;
     mark = null;
     if (tool === 'vp') {
       let i = vpAt(p);
