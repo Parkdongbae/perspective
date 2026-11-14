@@ -5,6 +5,7 @@ import { STAGES2, STAGES3, makeBox } from './learn23.js';
 import { LESSONS } from './follow.js';
 import { isMuted, setMuted } from './sfx.js';
 import { openSketch } from './sketch.js';
+import { initHand } from './hand.js';
 
 const app = document.getElementById('app');
 const DIFF = [
@@ -320,3 +321,4 @@ function playFollow(l) {
 }
 
 home();
+initHand();
